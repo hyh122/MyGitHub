@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+encoding//src/com/example/App/TestORMLiteApp.java=UTF-8
+encoding//src/com/example/dao/DataContext.java=UTF-8
+encoding//src/com/example/dao/DataHelper.java=UTF-8
+encoding//src/com/example/dao/IDataContext.java=UTF-8
+encoding//src/com/example/ui/RegisterActivity.java=UTF-8
+encoding//src/com/example/util/DatabaseConfigUtil.java=UTF-8
