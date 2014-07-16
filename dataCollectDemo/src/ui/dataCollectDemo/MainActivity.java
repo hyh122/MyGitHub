@@ -1,5 +1,7 @@
 package ui.dataCollectDemo;
 
+import java.util.List;
+
 import com.example.datacollectdemo.R;
 
 import domain.entity.MinuteSportData;
@@ -226,6 +228,9 @@ public class MainActivity extends Activity implements OnClickListener{
 			Log.e("hello", maxNum+"");
 			tv_disData.setText(maxNum+"");
 			
+			List<OneSport> oneSports;
+			oneSports=dataCollectService.getSportByDate(disDate.getDate());
+			tv_disData.setText(oneSports.get(0).getDate());
 			break;
 
 		}

@@ -41,6 +41,7 @@ public class disDate {
 //			return currentDay;
 			Date   curDate   =   new   Date(System.currentTimeMillis());//获取当前时间     
 			return curDate;
+			
 		}
 		
 	

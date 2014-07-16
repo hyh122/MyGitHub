@@ -5,7 +5,7 @@ import java.util.List;
 
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.App.TestORMLiteApp;
+import com.example.App.MyApp;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.dao.GenericRawResults;
@@ -21,8 +21,8 @@ public class DataContext implements IDataContext {
 	private SQLiteDatabase db; // 事务管理
 
 	public DataContext() {
-		connectionSource = TestORMLiteApp.DATAHELPER.getConnectionSource();
-		db = TestORMLiteApp.DATAHELPER.getWritableDatabase();
+		connectionSource = MyApp.DATAHELPER.getConnectionSource();
+		db = MyApp.DATAHELPER.getWritableDatabase();
 	}
 
 	// 增加
@@ -100,14 +100,25 @@ public class DataContext implements IDataContext {
 		return list;
 	}
 
+//	// 通用查询
+//	public <T, ID> List<T> query(Class<T> dataClass, Class<ID> idClass,
+//			PreparedQuery<T> query) throws SQLException {
+//		Dao<T, ID> dao = DaoManager.createDao(connectionSource, dataClass);
+//		
+//		return dao.query(query);
+//	}
 	// 通用查询
 	public <T, ID> List<T> query(Class<T> dataClass, Class<ID> idClass,
 			PreparedQuery<T> query) throws SQLException {
 		Dao<T, ID> dao = DaoManager.createDao(connectionSource, dataClass);
-		
+
 		return dao.query(query);
 	}
-
+	//获取dao,构造查询生成器要用到
+	public <T, ID> Dao getDao(Class<T> dataClass, Class<ID> idClass) throws SQLException {
+		Dao<T, ID> dao = DaoManager.createDao(connectionSource, dataClass);
+		return dao;
+	}
 
 	// 获取所有记录数
 	public <T, ID> long countof(Class<T> dataClass, Class<ID> idClass)

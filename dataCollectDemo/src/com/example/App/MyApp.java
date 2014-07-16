@@ -4,9 +4,9 @@ import foundation.dataService.base.DataHelper;
 
 import android.app.Application;
 
-public class TestORMLiteApp extends Application {
+public class MyApp extends Application {
 	//
-	public static final String DATAFILENAME="demo.db";
+	public static final String DATAFILENAME="demo2.db";
 	public static DataHelper DATAHELPER;
 	
 	@Override

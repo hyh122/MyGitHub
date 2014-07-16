@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
+
 import domain.entity.MinuteSportData;
 import domain.entity.OneSport;
 
@@ -14,6 +17,7 @@ import foundation.dataService.base.DataContext;
 
 
 public class DataCollectService {
+	
 	
 	/** 
 	 * <!-- begin-UML-doc -->
@@ -130,27 +134,27 @@ public class DataCollectService {
 	 * @return
 	 * @generated "UML 至 Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	private List<OneSport> getSportByDate(String date) {
-		List<OneSport> allOneSports=null;
-		List<OneSport> oneSports=new ArrayList<OneSport>();
-		OneSport oneSport=null;
-		try {
-			//取出所有运动数据
-			allOneSports=dtx.queryForAll(OneSport.class, Integer.class);
-			Iterator<OneSport> ite=allOneSports.iterator();
-			while(ite.hasNext()){
-				oneSport=ite.next();
-				if(oneSport.getDate().equals(date)){
-				oneSports.add(oneSport);
-				}
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public List<OneSport> getSportByDate(String date) {
+
 		
+				List<OneSport> oneSports = null;
+		 		try {
+		 			/*
+		 			 * 构造查询生成器
+		 			 */
+					QueryBuilder<OneSport, Integer>queryBuilder =dtx.getDao(OneSport.class, Integer.class).queryBuilder();
+					//查询日期为date的所有OneSport
+					queryBuilder.where().eq(OneSport.Date_NAME,date);
+					// prepare our sql statement
+					PreparedQuery<OneSport> query = queryBuilder.prepare();
+					oneSports=dtx.query(OneSport.class,Integer.class,query);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 		return oneSports;
+		
 	}
 
 	/** 

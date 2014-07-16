@@ -17,10 +17,12 @@ public class OneSport {
 	 * <!-- end-UML-doc -->
 	 * @generated "UML жа Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
+	public static final String Date_NAME = "date";
+	
 	@DatabaseField(generatedId=true)
 	private int id;
 	
-	@DatabaseField(canBeNull=false)
+	@DatabaseField(canBeNull=false,columnName=Date_NAME)
 	private String date;
 	
 	@DatabaseField(canBeNull=false)

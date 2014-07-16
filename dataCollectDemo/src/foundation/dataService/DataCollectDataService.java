@@ -7,7 +7,7 @@ import java.util.List;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.App.TestORMLiteApp;
+import com.example.App.MyApp;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.stmt.PreparedQuery;
