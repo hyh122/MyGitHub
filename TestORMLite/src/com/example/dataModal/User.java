@@ -8,7 +8,7 @@ public class User {
 	
 		@DatabaseField(id=true)
 		private String username;//用户名，作为主码
-		@DatabaseField(canBeNull=false)
+		@DatabaseField(canBeNull=false,columnName="hello")
 		private String password;//密码
 		
 		public User() {

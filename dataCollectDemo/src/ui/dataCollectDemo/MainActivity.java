@@ -6,7 +6,7 @@ import domain.entity.MinuteSportData;
 import domain.entity.OneSport;
 import domain.service.DataCollectService;
 import domain.service.disDate;
-import foundation.dataService.addData.addDataService;
+import foundation.dataService.DataCollectDataService;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -23,13 +23,13 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements OnClickListener{
 	private TextView tv_disData;
 	private Button btn_startRun,btn_disData;
-	
+	//
 	//业务实体类
 	private MinuteSportData minuteSportData;
 	private OneSport oneSport;
 	
 	//数据服务类
-	private addDataService dataService;
+	private DataCollectDataService dataService;
 	//业务服务类
 	private DataCollectService dataCollectService;
 	
@@ -155,7 +155,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		//实例化实体类和服务类
 		
 		
-		dataService=new addDataService();
+		dataService=new DataCollectDataService();
 		dataCollectService=new DataCollectService();
 		
 		
@@ -222,8 +222,9 @@ public class MainActivity extends Activity implements OnClickListener{
 		       clockThread.start(); /* 启动线程 */
 		       break;
 		case R.id.btn_disData:
-			Log.e("hello", "nihao");
-			
+			int maxNum=dataService.getMaxSportNum(disDate.getDate());
+			Log.e("hello", maxNum+"");
+			tv_disData.setText(maxNum+"");
 			
 			break;
 

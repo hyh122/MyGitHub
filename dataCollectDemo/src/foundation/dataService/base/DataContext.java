@@ -104,8 +104,10 @@ public class DataContext implements IDataContext {
 	public <T, ID> List<T> query(Class<T> dataClass, Class<ID> idClass,
 			PreparedQuery<T> query) throws SQLException {
 		Dao<T, ID> dao = DaoManager.createDao(connectionSource, dataClass);
+		
 		return dao.query(query);
 	}
+
 
 	// 获取所有记录数
 	public <T, ID> long countof(Class<T> dataClass, Class<ID> idClass)

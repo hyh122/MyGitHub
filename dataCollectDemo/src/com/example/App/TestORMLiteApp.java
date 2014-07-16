@@ -5,8 +5,8 @@ import foundation.dataService.base.DataHelper;
 import android.app.Application;
 
 public class TestORMLiteApp extends Application {
-	
-	public static final String DATAFILENAME="demo1.db";
+	//
+	public static final String DATAFILENAME="demo.db";
 	public static DataHelper DATAHELPER;
 	
 	@Override

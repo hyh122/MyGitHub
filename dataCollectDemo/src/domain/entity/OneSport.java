@@ -46,6 +46,10 @@ public class OneSport {
 	 */
 	@ForeignCollectionField(eager=false)
 	ForeignCollection<MinuteSportData> MinuteSportDatas;
+	
+	
+	
+	
 	public int getId() {
 		return id;
 	}
