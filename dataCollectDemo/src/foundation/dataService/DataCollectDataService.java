@@ -60,4 +60,15 @@ private DataContext dtx;
 		return maxNum;
 		
 	}
+	//¸ù¾Ýid²éÑ¯onesport
+	public OneSport getOneSport(int id){
+		OneSport oneSport=null;
+		try {
+			oneSport= dtx.queryById(OneSport.class, Integer.class, id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return oneSport;
+	}
 }

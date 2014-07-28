@@ -1,8 +1,11 @@
 package ui.dataCollectDemo;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.example.datacollectdemo.R;
+import com.j256.ormlite.dao.ForeignCollection;
 
 import domain.entity.MinuteSportData;
 import domain.entity.OneSport;
@@ -43,7 +46,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	private int j=1;
 	//设为静态
 	private static final int firstPick=0;//提示开始跑步
-	
+	private List<MinuteSportData> minuteSportDatas;
 	private static final int refreshPick=2;//提示更新(每分钟更新一次)
 	private static final int endPick=3;//提示跑步结束
 	@Override
@@ -75,7 +78,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		            		
 		            		minuteSportData.setHeartRate(70);
 		            		minuteSportData.setSpeed(3.2);
-		            		dataService.addMinuteSportData(minuteSportData);
+		            		minuteSportDatas.add(minuteSportData);
+		            		//dataService.addMinuteSportData(minuteSportData);
 		            		
 
 		            		minuteSportData=new MinuteSportData();
@@ -88,13 +92,29 @@ public class MainActivity extends Activity implements OnClickListener{
 		            	case endPick:
 		            		minuteSportData.setHeartRate(60);
 		            		minuteSportData.setSpeed(2.2);
-		            		dataService.addMinuteSportData(minuteSportData);
+		            		//dataService.addMinuteSportData(minuteSportData);
+		            		minuteSportDatas.add(minuteSportData);
 		            		
 		            		oneSport.setEndTime(disDate.getDate2());
+		            		oneSport.setLMinuteSportData(minuteSportDatas);
+		            		
+		            		
+		            		
 		            		dataService.addOneSportData(oneSport);
+		            	
+		            		
+		            		List<MinuteSportData> minutes=oneSport.getLMinuteSportData();
+		            		Iterator<MinuteSportData> ite=minutes.iterator();
+		            		while(ite.hasNext()){
+		            			MinuteSportData minute=new MinuteSportData();
+		            			minute=ite.next();
+		            			
+		            			dataService.addMinuteSportData(minute);
+		            		}
+		            		
 		            		i++;
 		            		j=1;
-		            		
+		            		minuteSportDatas.clear();//清空集合
 		            		break;
 //		            	case 1:
 //		            		/*
@@ -159,6 +179,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		
 		dataService=new DataCollectDataService();
 		dataCollectService=new DataCollectService();
+		minuteSportDatas=new ArrayList<MinuteSportData>();
 		
 		
 	}
@@ -193,7 +214,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		                       }
 		                	   }
 		                       mHandler.sendMessage(message);//传递信息 
-		                       Thread.currentThread().sleep(60000);//休息一分钟
+		                       Thread.currentThread().sleep(1000);//休息一分钟
 		                       
 		                	   /*
 			                	  * 该线程的作用是每隔一分钟提醒一次，把一分钟内的运动数据添加到数据库中

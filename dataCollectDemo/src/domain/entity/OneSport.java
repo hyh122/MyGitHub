@@ -1,10 +1,15 @@
 package domain.entity;
 
 
+import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 
+import com.j256.ormlite.dao.CloseableIterator;
+import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -49,9 +54,15 @@ public class OneSport {
 	@ForeignCollectionField(eager=false)
 	ForeignCollection<MinuteSportData> MinuteSportDatas;
 	
+	private List<MinuteSportData> LMinuteSportData;
 	
 	
-	
+	public List<MinuteSportData> getLMinuteSportData() {
+		return LMinuteSportData;
+	}
+	public void setLMinuteSportData(List<MinuteSportData> lMinuteSportData) {
+		LMinuteSportData = lMinuteSportData;
+	}
 	public int getId() {
 		return id;
 	}
@@ -90,6 +101,7 @@ public class OneSport {
 			ForeignCollection<MinuteSportData> minuteSportDatas) {
 		MinuteSportDatas = minuteSportDatas;
 	}
+	
 	
 	
 	
