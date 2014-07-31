@@ -16,6 +16,7 @@
 
 package com.example.bluetooth.le;
 
+import android.R.integer;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -33,6 +34,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,7 +47,7 @@ import com.File.TxtFileUtil;
 public class BluetoothLeService extends Service {
     private final static String TAG = BluetoothLeService.class.getSimpleName();
     //文件
-	private File f=new File("/sdcard/testBLE9.txt"/**文件路径名**/);
+	private File f=new File("/sdcard/HeartValues.txt"/**文件路径名**/);
 	private BluetoothGattCharacteristic mNotifyCharacteristic;
     private BluetoothManager mBluetoothManager;
     private BluetoothAdapter mBluetoothAdapter;
@@ -56,17 +58,9 @@ public class BluetoothLeService extends Service {
     private static final int STATE_DISCONNECTED = 0;
     private static final int STATE_CONNECTING = 1;
     private static final int STATE_CONNECTED = 2;
-
-    public final static String ACTION_GATT_CONNECTED =
-            "com.example.bluetooth.le.ACTION_GATT_CONNECTED";
-    public final static String ACTION_GATT_DISCONNECTED =
-            "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED";
-    public final static String ACTION_GATT_SERVICES_DISCOVERED =
-            "com.example.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED";
-    public final static String ACTION_DATA_AVAILABLE =
-            "com.example.bluetooth.le.ACTION_DATA_AVAILABLE";
-    public final static String EXTRA_DATA =
-            "com.example.bluetooth.le.EXTRA_DATA";
+    
+    private static List<Integer> heartValues=new ArrayList<Integer>();
+    
   //心率服务的uuid
     public final static UUID UUID_HEART_RATE_SERVICE=
             UUID.fromString(SampleGattAttributes.HEART_RATE_SERVICE);
@@ -82,9 +76,9 @@ public class BluetoothLeService extends Service {
             String intentAction;
             //已经和周边建立连接
             if (newState == BluetoothProfile.STATE_CONNECTED) {
-                intentAction = ACTION_GATT_CONNECTED;
+            
                 mConnectionState = STATE_CONNECTED;
-                writeState(intentAction);
+                //writeState(intentAction);
                 Log.i(TAG, "Connected to GATT server.");
                 // Attempts to discover services after successful connection.
                 Log.i(TAG, "Attempting to start service discovery:" +
@@ -93,17 +87,17 @@ public class BluetoothLeService extends Service {
             } 
             //没和周边建立连接
             else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                intentAction = ACTION_GATT_DISCONNECTED;
+                
                 mConnectionState = STATE_DISCONNECTED;
                 Log.i(TAG, "Disconnected from GATT server.");
-                writeState(intentAction);
+               // writeState(intentAction);
             }
         }
         //发现服务
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             if (status == BluetoothGatt.GATT_SUCCESS) {
-            	writeState(ACTION_GATT_SERVICES_DISCOVERED);
+            	
                 List<BluetoothGattService> gattServices=getSupportedGattServices();
       		  // Loops through available GATT Services.
       		UUID ServiceUuid = null;
@@ -166,7 +160,7 @@ public class BluetoothLeService extends Service {
     //解析特征值得到心率数据,并写入文件中
     private void dealCharacter(final BluetoothGattCharacteristic characteristic) {
         
-        TxtFileUtil.appendToFile("解析特征值"+"\r\n", f);
+        TxtFileUtil.appendToFile("心率值为"+"\r\n", f);
         // This is special handling for the Heart Rate Measurement profile.  Data parsing is
         // carried out as per profile specifications:
         // http://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.heart_rate_measurement.xml
@@ -184,69 +178,34 @@ public class BluetoothLeService extends Service {
                 Log.d(TAG, "Heart rate format UINT8.");
             }
             //取得心率的值,并将心率数据转成10进制
-            final int heartRate = characteristic.getIntValue(format, 1);
+            final Integer heartRate = characteristic.getIntValue(format, 1);
             Log.d(TAG, String.format("Received heart rate: %d", heartRate));
-            
+            heartValues.add(heartRate);
             TxtFileUtil.appendToFile(heartRate+"\r\n", f);
         } 
        
     }
-    //与周边的连接状态和是否已经发现service,并写入文件中
-    private void writeState(final String action) {
-        
-       
-        TxtFileUtil.appendToFile(action+"\r\n", f);
-    }
-//    //广播(对特征值进行处理后的广播)
-//    private void broadcastUpdate(final String action,
-//                                 final BluetoothGattCharacteristic characteristic) {
-//        final Intent intent = new Intent(action);
-//        TxtFileUtil.appendToFile(action+"\r\n", f);
-//        // This is special handling for the Heart Rate Measurement profile.  Data parsing is
-//        // carried out as per profile specifications:
-//        // http://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.heart_rate_measurement.xml
-//     
-//        //判断得到的是否是心率的UUID,是的话进行处理,最终将心率特征值转为10进制
-//        if (UUID_HEART_RATE_MEASUREMENT.equals(characteristic.getUuid())) {
-//        	UUID s=characteristic.getUuid();
-//            int flag = characteristic.getProperties();
-//            int format = -1;
-//            if ((flag & 0x01) != 0) {
-//                format = BluetoothGattCharacteristic.FORMAT_UINT16;
-//                Log.d(TAG, "Heart rate format UINT16.");
-//            } else {
-//                format = BluetoothGattCharacteristic.FORMAT_UINT8;
-//                Log.d(TAG, "Heart rate format UINT8.");
-//            }
-//            //取得心率的值,并将心率数据转成10进制
-//            final int heartRate = characteristic.getIntValue(format, 1);
-//            Log.d(TAG, String.format("Received heart rate: %d", heartRate));
-//            intent.putExtra(EXTRA_DATA, String.valueOf(heartRate));
-//            TxtFileUtil.appendToFile(heartRate+"\r\n", f);
-//        } else {
-//        	//如果得到的不是心率的UUID，则将其特征值转为16进制表示
-//            // For all other profiles, writes the data formatted in HEX.
-//            final byte[] data = characteristic.getValue();
-//            if (data != null && data.length > 0) {
-//                final StringBuilder stringBuilder = new StringBuilder(data.length);
-//                for(byte byteChar : data)
-//                    stringBuilder.append(String.format("%02X ", byteChar));
-//                intent.putExtra(EXTRA_DATA, new String(data) + "\n" + stringBuilder.toString());
-//            }
-//        }
-//        sendBroadcast(intent);
-//    }
 
+
+    //得到心率集合
+    public static List<Integer> getHeartRates(){
+    	List<Integer> HeartRates=new ArrayList<Integer>();
+    	HeartRates.addAll(heartValues);
+    	heartValues.clear();
+    	return HeartRates;
+    	
+    }
+    
     public class LocalBinder extends Binder {
         BluetoothLeService getService() {
-        	TxtFileUtil.appendToFile("LocalBinder"+"\r\n", f);
+        	
             return BluetoothLeService.this;
         }
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-    	TxtFileUtil.appendToFile("onBinder"+"\r\n", f);
+    	
         return mBinder;
     }
 
@@ -255,7 +214,7 @@ public class BluetoothLeService extends Service {
         // After using a given device, you should make sure that BluetoothGatt.close() is called
         // such that resources are cleaned up properly.  In this particular example, close() is
         // invoked when the UI is disconnected from the Service.
-    	TxtFileUtil.appendToFile("onUnbind"+"\r\n", f);
+    	
         close();
         return super.onUnbind(intent);
     }
@@ -270,7 +229,7 @@ public class BluetoothLeService extends Service {
     public boolean initialize() {
         // For API level 18 and above, get a reference to BluetoothAdapter through
         // BluetoothManager.
-    	TxtFileUtil.appendToFile("initialize"+"\r\n", f);
+    
         if (mBluetoothManager == null) {
             mBluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
             if (mBluetoothManager == null) {
@@ -299,7 +258,7 @@ public class BluetoothLeService extends Service {
      *         callback.
      */
     public boolean connect(final String address) {
-    	TxtFileUtil.appendToFile("connect"+"\r\n", f);
+    	
         if (mBluetoothAdapter == null || address == null) {
             Log.w(TAG, "BluetoothAdapter not initialized or unspecified address.");
             return false;
@@ -325,9 +284,7 @@ public class BluetoothLeService extends Service {
         // We want to directly connect to the device, so we are setting the autoConnect
         // parameter to false.
         mBluetoothGatt = device.connectGatt(this, false, mGattCallback);
-        if(mBluetoothGatt==null){
-        TxtFileUtil.appendToFile("connect mBluetoothGatt null"+"\r\n", f);
-        }
+     
         Log.d(TAG, "Trying to create a new connection.");
         mBluetoothDeviceAddress = address;
         mConnectionState = STATE_CONNECTING;
@@ -342,7 +299,7 @@ public class BluetoothLeService extends Service {
      */
     public void disconnect() {
         if (mBluetoothAdapter == null || mBluetoothGatt == null) {
-        	TxtFileUtil.appendToFile("disconnect"+"\r\n", f);
+        
             Log.w(TAG, "BluetoothAdapter not initialized");
             return;
         }
@@ -355,7 +312,7 @@ public class BluetoothLeService extends Service {
      */
     public void close() {
         if (mBluetoothGatt == null) {
-        	TxtFileUtil.appendToFile("close"+"\r\n", f);
+        	
             return;
         }
         mBluetoothGatt.close();
@@ -370,7 +327,7 @@ public class BluetoothLeService extends Service {
      * @param characteristic The characteristic to read from.
      */
     public void readCharacteristic(BluetoothGattCharacteristic characteristic) {
-    	TxtFileUtil.appendToFile("readCharacter"+"\r\n", f);
+    	
         if (mBluetoothAdapter == null || mBluetoothGatt == null) {
         	
             Log.w(TAG, "BluetoothAdapter not initialized");
@@ -387,7 +344,7 @@ public class BluetoothLeService extends Service {
      */
     public void setCharacteristicNotification(BluetoothGattCharacteristic characteristic,
                                               boolean enabled) {
-    	TxtFileUtil.appendToFile("setCharacterNotify"+"\r\n", f);
+    	
         if (mBluetoothAdapter == null || mBluetoothGatt == null) {
         	
             Log.w(TAG, "BluetoothAdapter not initialized");
@@ -411,7 +368,7 @@ public class BluetoothLeService extends Service {
      * @return A {@code List} of supported services.
      */
     public List<BluetoothGattService> getSupportedGattServices() {
-    	TxtFileUtil.appendToFile("getServices"+"\r\n", f);
+    	
         if (mBluetoothGatt == null) return null;
 
         return mBluetoothGatt.getServices();
