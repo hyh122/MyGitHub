@@ -140,7 +140,7 @@ public class DeviceControlActivity extends Activity implements OnClickListener{
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
         
         service=new MyService();
-        service.startThread();
+       // service.startThread();
     }
 
     @Override

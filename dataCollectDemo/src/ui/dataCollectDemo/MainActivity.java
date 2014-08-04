@@ -249,9 +249,9 @@ public class MainActivity extends Activity implements OnClickListener{
 			Log.e("hello", maxNum+"");
 			tv_disData.setText(maxNum+"");
 			
-			List<OneSport> oneSports;
-			oneSports=dataCollectService.getSportByDate(disDate.getDate());
-			tv_disData.setText(oneSports.get(0).getDate());
+//			List<OneSport> oneSports;
+//			oneSports=dataCollectService.getSportByDate(disDate.getDate());
+//			tv_disData.setText(oneSports.get(0).getDate());
 			break;
 
 		}

@@ -6,7 +6,7 @@ import android.app.Application;
 
 public class MyApp extends Application {
 	//
-	public static final String DATAFILENAME="demo3.db";
+	public static final String DATAFILENAME="demo4.db";
 	public static DataHelper DATAHELPER;
 	
 	@Override

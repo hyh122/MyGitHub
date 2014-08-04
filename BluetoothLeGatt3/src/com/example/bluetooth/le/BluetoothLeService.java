@@ -35,10 +35,16 @@ import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 import com.File.TxtFileUtil;
+import com.tools.DateService;
+
+
 
 /**
  * Service for managing connection and data communication with a GATT server hosted on a
@@ -61,13 +67,46 @@ public class BluetoothLeService extends Service {
     
     private static List<Integer> heartValues=new ArrayList<Integer>();
     
-  //心率服务的uuid
+    //心率服务的uuid
     public final static UUID UUID_HEART_RATE_SERVICE=
             UUID.fromString(SampleGattAttributes.HEART_RATE_SERVICE);
     //心率测量的UUID
     public final static UUID UUID_HEART_RATE_MEASUREMENT =
             UUID.fromString(SampleGattAttributes.HEART_RATE_MEASUREMENT);
+    //时间
+  	private static Date collectTime;
+  	private static Timer UpdateTimer;//更新时间表
+    
+ 
+  	
+  	
+  	private static ITimeout listener=null;
+	
 
+	 public ITimeout getLis() {
+		return listener;
+	}
+
+	public static void setLis(ITimeout lis) {
+		listener = lis;
+	}
+	
+	public static void work(){
+		
+		TimerTask task=new TimerTask(){
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				collectTime=DateService.getDate();
+				listener.onTimeout(collectTime);
+				
+				}
+			 };
+			 UpdateTimer=new Timer();
+			 UpdateTimer.schedule(task, 60000, 60000);//第一次更新时间为一分钟，频率为一分钟
+		
+		
+	}
     // Implements callback methods for GATT events that the app cares about.  For example,
     // connection change and services discovered.
     private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
@@ -180,18 +219,30 @@ public class BluetoothLeService extends Service {
             //取得心率的值,并将心率数据转成10进制
             final Integer heartRate = characteristic.getIntValue(format, 1);
             Log.d(TAG, String.format("Received heart rate: %d", heartRate));
-            heartValues.add(heartRate);
+            //添加到心率集合中
+            add(heartRate);
             TxtFileUtil.appendToFile(heartRate+"\r\n", f);
         } 
        
     }
 
-
+ 
+  	
+  	//往心率集合里面添加心率数据	
+	public synchronized void add(Integer heartRate){
+		heartValues.add(heartRate);
+	}
+	//清楚心率集合的数据
+	public synchronized static void clear(){
+		heartValues.clear();
+	}
+  	
+  	
     //得到心率集合
     public static List<Integer> getHeartRates(){
     	List<Integer> HeartRates=new ArrayList<Integer>();
     	HeartRates.addAll(heartValues);
-    	heartValues.clear();
+    	clear();
     	return HeartRates;
     	
     }

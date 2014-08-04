@@ -52,7 +52,12 @@ private DataContext dtx;
 		try {
 		
 			List<String[]> max=dtx.queryBySql(OneSport.class, Integer.class, "select max(count) from T_OneSport where date='"+sportDay+"'");
-			maxNum=Integer.parseInt(max.get(0)[0]);
+			if(max.get(0)[0]==null){
+			}	
+			else{
+				maxNum=Integer.parseInt(max.get(0)[0]);
+			}
+		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
