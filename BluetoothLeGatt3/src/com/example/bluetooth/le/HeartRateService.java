@@ -12,64 +12,53 @@ import com.File.TxtFileUtil;
 import com.entity.HeartRate;
 import com.tools.DateService;
 
+
+
 import android.content.Intent;
 
 
 
-public class MyService implements ITimeout{
+public class HeartRateService implements ITimeout{
 	//存放一分钟的全部心率数据
 	private List<Integer> heartRates=new ArrayList<Integer>();;
 	//存放每一分钟的最佳心率数据
 	private List<HeartRate> minuteHeartRates=new ArrayList<HeartRate>();
 	//时间
 	private Date collectTime;
-	
 	//新建文件
 	private File f=new File("/sdcard/HeartRates.txt"/**文件路径名**/);
 	
-	//private boolean flag=false;
+	private IHeartRateTimeOut listener=null;
+	
+	private int flag=0;
+
+	 public void setListener(IHeartRateTimeOut listener) {
+		this.listener = listener;
+	 }
+
+
+	public HeartRateService() {
+		 BLEService.setLis(this);
+		 
+	 }
+
+	//开始
+	public void start(){
+		
+		 BLEService.work();	
+	}
+	//停止
+	public void stop(){
+		flag=1;
+	}
 	
 	//设置每分钟的全部心率数据集合
 	public void setHeartRates(){
 		//取得当前一分钟的全部的心率集合
-		heartRates.addAll(BluetoothLeService.getHeartRates());
+		heartRates.addAll(BLEService.getHeartRates());
 	}
-	
-	
-	
-	 public MyService() {
-		 BluetoothLeService.setLis(this);
-		 BluetoothLeService.work();	
-		
-//		 Thread writeThread = new Thread(run2);
-//		 writeThread.start();
-		 
-
-	}
-//	 Runnable run2 = new Runnable() {
-//
-//		@Override
-//		public void run() {
-//			while (true) {
-//				
-//			
-//				if(flag){
-//					for(int i=0;i<heartRates.size();i++){
-//						TxtFileUtil.appendToFile(heartRates.get(i)+"\r\n",f);
-//						}
-//					//求出这一分钟的最佳心率
-//				    getBestHeartRate();
-//				
-//					flag=false;
-//				}
-//		}
-//		}
-//	};
-
-
-	
 	//求最佳心率值
-	public void getBestHeartRate(){
+	public void setBestHeartRate(){
 		 //求去除后的心率值的总和
 		 int sum = 0;
 		 //去平均值
@@ -102,34 +91,38 @@ public class MyService implements ITimeout{
 		 
 		 TxtFileUtil.appendToFile("ave:"+avg+"\r\n",f);
 		 HeartRate heartRate=new HeartRate(avg, collectTime);
+		 
+		 //解析到一个心率值后通知上层
+		 listener.HOnTimeOut(heartRate);
+		 
 		 //添加到分钟心率中
 		 minuteHeartRates.add(heartRate);
 		 //清空本分钟的所有心率集合
 		 heartRates.clear();
 		 
 	}
-		 
-		 
-		
 	@Override
 	public void onTimeout(Date collectTime) {
+		if(flag==0){
 		// TODO Auto-generated method stub
 		this.collectTime=collectTime;
 		TxtFileUtil.appendToFile("start:"+this.collectTime+"\r\n",f);
 		//取得当前一分钟的所有的心率
 		setHeartRates();
 		TxtFileUtil.appendToFile("size:"+heartRates.size()+"\r\n",f);
-	 
+		
 		for(int i=0;i<heartRates.size();i++){
 			TxtFileUtil.appendToFile(heartRates.get(i)+"\r\n",f);
-			}
+		}
 		//求出这一分钟的最佳心率
-	    getBestHeartRate();
-	
+		setBestHeartRate();
+		}
 		
-		//flag=true;
 	}
 }
+
+	
+
 		 
 		
 		 

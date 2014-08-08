@@ -41,6 +41,6 @@ limitations under the License.
             </intent-filter>
         </activity>
         <activity android:name=".DeviceControlActivity"/>
-        <service android:name=".BluetoothLeService" android:enabled="true"/>
+        <service android:name=".BLEService" android:enabled="true"/>
     </application>
 </manifest>

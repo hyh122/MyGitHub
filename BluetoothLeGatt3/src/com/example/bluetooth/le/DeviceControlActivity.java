@@ -26,7 +26,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +48,7 @@ import java.util.TimerTask;
 import java.util.UUID;
 
 import com.File.TxtFileUtil;
+import com.entity.HeartRate;
 import com.tools.DateService;
 
 /**
@@ -54,9 +57,9 @@ import com.tools.DateService;
  * communicates with {@code BluetoothLeService}, which in turn interacts with the
  * Bluetooth LE API.
  */
-public class DeviceControlActivity extends Activity implements OnClickListener{
+public class DeviceControlActivity extends Activity implements OnClickListener,IHeartRateTimeOut{
     private final static String TAG = DeviceControlActivity.class.getSimpleName();
-    private Timer UpdateTimer;//更新时间表
+  
     public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
     public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
     //文件
@@ -65,29 +68,22 @@ public class DeviceControlActivity extends Activity implements OnClickListener{
     private String mDeviceName;
     private String mDeviceAddress;
 
-    private BluetoothLeService mBluetoothLeService;
+    private BLEService mBluetoothLeService;
     
     private Button btn_displayHeartRates;
     private TextView tv_displayHeartRates;
-    private MyService service;
-
-
-    private final String LIST_NAME = "NAME";
-    private final String LIST_UUID = "UUID";
+    private HeartRateService service;
     
-    //心率服务的uuid
-    public final static UUID UUID_HEART_RATE_SERVICE=
-            UUID.fromString(SampleGattAttributes.HEART_RATE_SERVICE);
-    //心率测量的UUID
-    public final static UUID UUID_HEART_RATE_MEASUREMENT =
-            UUID.fromString(SampleGattAttributes.HEART_RATE_MEASUREMENT);
+    private HeartRate heartRateData=new HeartRate();
+    private Handler mHandler;
+    private Thread clockThread;
     
     // Code to manage Service lifecycle.
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder service) {
-            mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
+            mBluetoothLeService = ((BLEService.LocalBinder) service).getService();
             if (!mBluetoothLeService.initialize()) {
                 Log.e(TAG, "Unable to initialize Bluetooth");
                 finish();
@@ -135,13 +131,52 @@ public class DeviceControlActivity extends Activity implements OnClickListener{
         getActionBar().setTitle(mDeviceName);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         //启动BluetoothLeService
-        Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
+        Intent gattServiceIntent = new Intent(this, BLEService.class);
         //将该activity与BluetoothLeService绑定
+        
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
         
-        service=new MyService();
-       // service.startThread();
-    }
+        service=new HeartRateService();
+        service.start();
+        service.setListener(this);
+        
+        
+        //在handler中接收信息,更新UI
+	    mHandler = new Handler(){  
+	              public void handleMessage(Message msg) {
+	            	  tv_displayHeartRates.setText(heartRateData.getHeartRate()+"");
+	          	}
+		            
+        };  
+    
+        /* 线程体是Clock对象本身，线程名字为"Clock" */
+	      clockThread = new Thread(new Runnable() {
+	           @Override
+	           public void run() {
+	            
+	                   /*
+					  * 该线程的作用是每隔一分钟提醒一次，把一分钟内的运动数据添加到数据库中
+					  */
+					   Message message = new Message();
+					
+					 
+					  
+					   mHandler.sendMessage(message);//传递信息 
+	               
+	           }
+	           
+	      });
+	      
+	      clockThread.start(); /* 启动线程 */
+  }
+	                       
+                  
+	                       
+	                   
+	                       
+	                       
+	                     
+	                       
 
     @Override
     protected void onResume() {
@@ -162,8 +197,10 @@ public class DeviceControlActivity extends Activity implements OnClickListener{
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(mBluetoothLeService!=null){
         unbindService(mServiceConnection);
         mBluetoothLeService = null;
+       }
     }
 
 	@Override
@@ -171,7 +208,9 @@ public class DeviceControlActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 		case R.id.btn_displayHeartRates:
-			TxtFileUtil.appendToFile("点击"+"\r\n",f);
+		//	TxtFileUtil.appendToFile("点击"+"\r\n",f);
+//			unbindService(mServiceConnection);
+//			mBluetoothLeService = null;
 			//取得当前阶段的心率集合
 //			List<Integer> HeartRates=service.getHeartRates();
 //			for(int i=0;i<HeartRates.size();i++){
@@ -179,9 +218,21 @@ public class DeviceControlActivity extends Activity implements OnClickListener{
 //			}
 //			//清空心率集合
 //			service.clearHeartRates();
+			service.stop();
+			unbindService(mServiceConnection);
+			mBluetoothLeService = null;
 			break;
+		
 		}
 		
+	}
+
+	@Override
+	public void HOnTimeOut(HeartRate heartRateData) {
+		// TODO Auto-generated method stub
+		
+		this.heartRateData=heartRateData;
+		clockThread.run();
 	}
 
  

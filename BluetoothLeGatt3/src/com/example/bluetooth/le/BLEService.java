@@ -50,23 +50,23 @@ import com.tools.DateService;
  * Service for managing connection and data communication with a GATT server hosted on a
  * given Bluetooth LE device.
  */
-public class BluetoothLeService extends Service {
-    private final static String TAG = BluetoothLeService.class.getSimpleName();
+public class BLEService extends Service {
+    private final static String TAG = BLEService.class.getSimpleName();
     //文件
-	private File f=new File("/sdcard/HeartValues.txt"/**文件路径名**/);
+	private File f=new File("/sdcard/HeartRates.txt"/**文件路径名**/);
 	private BluetoothGattCharacteristic mNotifyCharacteristic;
     private BluetoothManager mBluetoothManager;
     private BluetoothAdapter mBluetoothAdapter;
     private String mBluetoothDeviceAddress;
     private BluetoothGatt mBluetoothGatt;
     private int mConnectionState = STATE_DISCONNECTED;
-    private BluetoothLeService mBluetoothLeService;
+    private BLEService mBluetoothLeService;
     private static final int STATE_DISCONNECTED = 0;
     private static final int STATE_CONNECTING = 1;
     private static final int STATE_CONNECTED = 2;
     
-    private static List<Integer> heartValues=new ArrayList<Integer>();
-    
+   // private static List<Integer> heartValues=new ArrayList<Integer>();
+    private static HeartList heartList=new HeartList();
     //心率服务的uuid
     public final static UUID UUID_HEART_RATE_SERVICE=
             UUID.fromString(SampleGattAttributes.HEART_RATE_SERVICE);
@@ -83,7 +83,7 @@ public class BluetoothLeService extends Service {
   	private static ITimeout listener=null;
 	
 
-	 public ITimeout getLis() {
+	public ITimeout getLis() {
 		return listener;
 	}
 
@@ -220,37 +220,44 @@ public class BluetoothLeService extends Service {
             final Integer heartRate = characteristic.getIntValue(format, 1);
             Log.d(TAG, String.format("Received heart rate: %d", heartRate));
             //添加到心率集合中
-            add(heartRate);
+            heartList.add(heartRate);
             TxtFileUtil.appendToFile(heartRate+"\r\n", f);
         } 
        
     }
 
  
+  //得到心率集合
+  public static List<Integer> getHeartRates(){
+  	List<Integer> HeartRates=new ArrayList<Integer>();
+  	HeartRates.addAll(heartList.getHeartRates());
+  	heartList.clear();
+  	return HeartRates;
   	
-  	//往心率集合里面添加心率数据	
-	public synchronized void add(Integer heartRate){
-		heartValues.add(heartRate);
-	}
-	//清楚心率集合的数据
-	public synchronized static void clear(){
-		heartValues.clear();
-	}
+  }
+//  	//往心率集合里面添加心率数据	
+//	public synchronized void add(Integer heartRate){
+//		heartValues.add(heartRate);
+//	}
+//	//清楚心率集合的数据
+//	public synchronized static void clear(){
+//		heartValues.clear();
+//	}
   	
   	
-    //得到心率集合
-    public static List<Integer> getHeartRates(){
-    	List<Integer> HeartRates=new ArrayList<Integer>();
-    	HeartRates.addAll(heartValues);
-    	clear();
-    	return HeartRates;
-    	
-    }
+//    //得到心率集合
+//    public static List<Integer> getHeartRates(){
+//    	List<Integer> HeartRates=new ArrayList<Integer>();
+//    	HeartRates.addAll(heartValues);
+//    	clear();
+//    	return HeartRates;
+//    	
+//    }
     
     public class LocalBinder extends Binder {
-        BluetoothLeService getService() {
+        public BLEService getService() {
         	
-            return BluetoothLeService.this;
+            return BLEService.this;
         }
     }
 
