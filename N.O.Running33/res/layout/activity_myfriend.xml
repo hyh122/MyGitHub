@@ -1,0 +1,198 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bgmenu1"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="444dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <ImageButton
+                        android:id="@+id/imageButtonrt"
+                        android:layout_width="40dp"
+                        android:layout_height="43dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="0.12"
+                          android:background="@android:color/transparent" 
+                        android:src="@drawable/rt" />
+			 <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="20dp"
+                        android:layout_height="43dp"
+                        android:layout_weight="0.45"
+                          android:background="@android:color/transparent" 
+                        android:gravity="center"
+                        android:text="历史记录"
+                        android:textColor="#00FFFF"
+                        android:textSize="10sp" />
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="100dp"
+                        android:layout_height="43dp"
+                        android:layout_weight="0.45"
+                          android:background="@android:color/transparent" 
+                        android:gravity="center"
+                        android:text="我的好友        "
+                        android:textColor="#ffffff"
+                        android:textSize="20sp" />
+                     <ImageButton
+                        android:id="@+id/imageButton2"
+                        android:layout_width="45dp"
+                        android:layout_height="43dp"
+                        android:layout_marginRight="5dp"
+                          android:background="@android:color/transparent" 
+                        android:src="@drawable/ic_five" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton2"
+                        android:layout_width="45dp"
+                        android:layout_height="43dp"
+                        android:layout_marginRight="2dp"
+                          android:background="@android:color/transparent" 
+                        android:src="@drawable/rmenu" />
+                </LinearLayout>
+
+            </LinearLayout>
+		
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                     <SearchView
+                            android:id="@+id/searchView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#FFFFFF"
+                            android:layout_marginTop="2dp" >
+                        </SearchView>
+
+                        <EditText
+                            android:id="@+id/search"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="#FFFFFF"
+                            android:hint="搜索"
+                             android:layout_marginTop="2dp"
+                             android:layout_marginLeft="0.1dp"
+                            android:paddingLeft="10dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+            
+            
+            
+            
+            
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                     
+                     <ImageButton
+                        android:id="@+id/imageButton1"
+                        android:layout_width="25dp"
+                        android:layout_height="49dp"
+                        android:layout_marginLeft="0dp"
+                        android:layout_weight="0.12"
+                        android:background="#CCFFFF"
+                         android:layout_marginTop="2dp"
+                        android:src="@drawable/card_title_2" />
+
+ 					 <TextView
+ 					     android:id="@+id/textView1"
+ 					     android:layout_width="10dp"
+ 					     android:layout_height="50dp"
+ 					     android:layout_weight="0.45"
+ 					     
+ 					     android:background="#CCCCCC"
+ 					     android:gravity="center"
+ 					     android:text="周闻        						   "
+ 					      android:layout_marginTop="2dp"
+ 					     android:textSize="10sp"
+ 					    />
+
+ 					   <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="20dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="0.45"
+                        android:background="#CCCCCC"
+                        android:gravity="center"
+                        android:text="							10:25"
+                         android:layout_marginTop="2dp"
+                        android:textSize="10sp" />
+                       
+                </LinearLayout>
+
+            </LinearLayout>
+            
+           
+            
+            
+            
+            
+            
+            
+            
+            
+       
+         </LinearLayout>     
+  </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_weight="0.45"
+                android:background="#33CCFF"
+                android:text="我的好友" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_weight="0.44"
+                android:background="#FF3300"
+                android:text="好友动态" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
