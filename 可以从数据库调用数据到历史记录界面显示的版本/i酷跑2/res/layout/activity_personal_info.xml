@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:layout_marginTop="0sp"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <ImageView
+                        android:layout_width="48dip"
+                        android:layout_height="48dip"
+                        android:src="@drawable/card_title_2" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20sp"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/txt_personal_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="Sharl Hason"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0sp"
+                    android:src="@drawable/battery_horizontal_dividing_line" />
+            </LinearLayout>
+<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/btn_birthdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                
+                    android:text="出生日期" 
+                    
+                    />
+
+                
+                <TextView
+                    android:id="@+id/tv_showbirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1990-01-01"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/battery_horizontal_dividing_line" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性别"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                 <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="性别"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/radioMale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="男" 
+                        android:textSize="20sp">
+                    </RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/radioFemale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dip"
+                        android:text="女" 
+                        android:textSize="20sp">
+                    </RadioButton>
+                </RadioGroup>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/battery_horizontal_dividing_line" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="身高/cm"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_height"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20.0dip"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="10"
+                    android:hint="请输入身高/m"
+                    android:inputType="number"
+                    android:textStyle="bold"
+                    android:maxLength="16"
+                    android:maxLines="1"
+                    android:paddingLeft="12.0dip"
+                    android:text="175"
+                    android:textColor="#ff1d1d1d"
+                    android:textColorHint="#ff666666"
+                    android:textSize="16.0sp" >
+                </EditText>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/battery_horizontal_dividing_line" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="体重/kg"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_weight"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20.0dip"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="10"
+                    android:gravity="center_vertical"
+                    android:hint="请输入体重/kg"
+                    android:inputType="number"
+                    android:textStyle="bold"
+                    android:maxLength="16"
+                    android:maxLines="1"
+                    android:paddingLeft="12.0dip"
+                    android:text="65"
+                    android:textColor="#ff1d1d1d"
+                    android:textColorHint="#ff666666"
+                    android:textSize="16.0sp" >
+                </EditText>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/battery_horizontal_dividing_line" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="平静心率:b/min"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_heartrate"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20.0dip"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="10"
+                    android:gravity="center_vertical"
+                    android:hint="请输入心率/kg"
+                    android:inputType="number"
+                    android:textStyle="bold"
+                    android:maxLength="16"
+                    android:maxLines="1"
+                    android:paddingLeft="12.0dip"
+                    android:text="75"
+                    android:textColor="#ff1d1d1d"
+                    android:textColorHint="#ff666666"
+                    android:textSize="16.0sp" >
+                </EditText>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/battery_horizontal_dividing_line" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dip"
+               
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/btn_save"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="132dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dip"
+                    android:layout_marginTop="15sp"
+                    android:background="#0099CC"
+                    android:gravity="center"
+                    android:text="保存"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/battery_horizontal_dividing_line" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
