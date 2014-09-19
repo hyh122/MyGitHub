@@ -6,7 +6,7 @@ import android.app.Application;
 
 public class TestORMLiteApp extends Application {
 	
-	public static final String DATAFILENAME="test1.db";
+	public static final String DATAFILENAME="test3.db";
 	public static DataHelper DATAHELPER;
 	
 	@Override

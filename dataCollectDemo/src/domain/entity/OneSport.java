@@ -23,6 +23,8 @@ public class OneSport {
 	 * @generated "UML жа Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public static final String Date_NAME = "date";
+
+	public static final String COUNT_NAME = "count";
 	
 	@DatabaseField(generatedId=true)
 	private int id;
@@ -44,7 +46,7 @@ public class OneSport {
 	 * <!-- end-UML-doc -->
 	 * @generated "UML жа Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	@DatabaseField(canBeNull=false)
+	@DatabaseField(canBeNull=false,columnName=COUNT_NAME)
 	private Integer count;
 	/** 
 	 * <!-- begin-UML-doc -->
@@ -98,7 +100,152 @@ public class OneSport {
 		this.date = date;
 	}
 	public void setMinuteSportDatas(
-			ForeignCollection<MinuteSportData> minuteSportDatas) {
+		List<MinuteSportData> LminuteSportDatas) {
+		
+		ForeignCollection<MinuteSportData> minuteSportDatas=new ForeignCollection<MinuteSportData>() {
+			
+			
+			@Override
+			public boolean add(MinuteSportData object) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean addAll(
+					Collection<? extends MinuteSportData> collection) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public void clear() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public boolean contains(Object object) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean containsAll(Collection<?> collection) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean isEmpty() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public Iterator<MinuteSportData> iterator() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public boolean remove(Object object) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean removeAll(Collection<?> collection) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean retainAll(Collection<?> collection) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public int size() {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public Object[] toArray() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public <T> T[] toArray(T[] array) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public CloseableIterator<MinuteSportData> closeableIterator() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void closeLastIterator() throws SQLException {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public CloseableWrappedIterable<MinuteSportData> getWrappedIterable() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public boolean isEager() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public CloseableIterator<MinuteSportData> iteratorThrow()
+					throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public int refresh(MinuteSportData arg0) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public int refreshAll() throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public int refreshCollection() throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public int update(MinuteSportData arg0) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public int updateAll() throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+		};
+		
 		MinuteSportDatas = minuteSportDatas;
 	}
 	

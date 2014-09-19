@@ -1,5 +1,5 @@
 #
-# generated on 2014/07/15 10:29:42
+# generated on 2014/09/19 12:01:09
 #
 # --table-start--
 dataClass=com.example.dataModal.User

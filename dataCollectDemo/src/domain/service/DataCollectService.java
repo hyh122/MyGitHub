@@ -103,28 +103,25 @@ public class DataCollectService {
 	 * @generated "UML 至 Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	private OneSport getSportByCount(Integer count, String date) {
-		// begin-user-code
-		// TODO 自动生成的方法存根
-		List<OneSport> OneSports=null;
-		OneSport oneSport=null;
-		try {
-			//取出所有运动数据
-			OneSports=dtx.queryForAll(OneSport.class, Integer.class);
-			Iterator<OneSport> ite=OneSports.iterator();
-			while(ite.hasNext()){
-				oneSport=ite.next();
-				if(oneSport.getDate().equals(date)&&oneSport.getCount()==count){
-				break;
-				}
-				
-			}
+List<OneSport> oneSports = null;
+		
+ 		try {
+ 			/*
+ 			 * 构造查询生成器
+ 			 */
+			QueryBuilder<OneSport, Integer>queryBuilder =dtx.getQueryBuilder(OneSport.class, Integer.class);
+			//查询日期为date,第count次的OneSport
+			queryBuilder.where().eq(OneSport.Date_NAME,date).and().eq(OneSport.COUNT_NAME,count);
+			
+			// prepare our sql statement
+			PreparedQuery<OneSport> query = queryBuilder.prepare();
+			oneSports=dtx.query(OneSport.class,Integer.class,query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return oneSport;
-		// end-user-code
+	
+ 		return oneSports.get(0);
 	}
 
 	/** 
@@ -142,7 +139,7 @@ public class DataCollectService {
 		 			/*
 		 			 * 构造查询生成器
 		 			 */
-					QueryBuilder<OneSport, Integer>queryBuilder =dtx.getDao(OneSport.class, Integer.class).queryBuilder();
+					QueryBuilder<OneSport, Integer>queryBuilder =dtx.getQueryBuilder(OneSport.class, Integer.class);
 					//查询日期为date的所有OneSport
 					queryBuilder.where().eq(OneSport.Date_NAME,date);
 					// prepare our sql statement
