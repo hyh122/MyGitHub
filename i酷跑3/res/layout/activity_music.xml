@@ -1,0 +1,206 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/music1"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                   
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="210dp"
+                        android:layout_height="43dp"
+                        android:layout_weight="0.45"
+                        android:background="@android:color/transparent" 
+                        android:gravity="center"
+                        android:text="选择音乐"
+                        android:textSize="20sp" />
+
+                   
+                </LinearLayout>
+
+            </LinearLayout>
+		
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                     <SearchView
+                            android:id="@+id/searchView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            
+                             android:background="@android:color/transparent" 
+                            >
+                        </SearchView>
+
+                        <EditText
+                            android:id="@+id/search"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="@android:color/transparent" 
+                            android:hint="搜索"
+                            android:paddingLeft="10dp"
+                            />
+                </LinearLayout>
+
+            </LinearLayout>
+            
+            
+             
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                     
+	 					 <TextView
+	 					     android:id="@+id/textView1"
+	 					     android:layout_width="10dp"
+	 					     android:layout_height="30dp"
+	 					     android:layout_marginTop="3dp"
+	 					     android:layout_weight="0.45"
+	 					     android:background="#CCFFFF"
+	 					     android:gravity="center"
+	 					     android:text="泡沫						"
+	 					     android:textSize="10sp" />
+
+ 					 <TextView
+ 					     android:id="@+id/textView1"
+ 					     android:layout_width="10dp"
+ 					     android:layout_height="30dp"
+ 					     android:layout_marginTop="3dp"
+ 					     android:layout_weight="0.45"
+ 					     android:background="#CCFFFF"
+ 					     android:gravity="center"
+ 					     android:text="						3:03"
+ 					     android:textSize="10sp" />
+                       
+                </LinearLayout>
+
+            </LinearLayout>
+            
+           
+             
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                     
+ 					 <TextView
+ 					     android:id="@+id/textView1"
+ 					     android:layout_width="10dp"
+ 					     android:layout_height="30dp"
+ 					     android:layout_marginTop="3dp"
+ 					     android:layout_weight="0.45"
+ 					     android:background="#CCFFFF"
+ 					     android:gravity="center"
+ 					     android:text="泡沫						"
+ 					     android:textSize="10sp" />
+
+ 					 <TextView
+ 					     android:id="@+id/textView1"
+ 					     android:layout_width="10dp"
+ 					     android:layout_height="30dp"
+ 					     android:layout_marginTop="3dp"
+ 					     android:layout_weight="0.45"
+ 					     android:background="#CCFFFF"
+ 					     android:gravity="center"
+ 					     android:text="						3:03"
+ 					     android:textSize="10sp" />
+                       
+                </LinearLayout>
+
+            </LinearLayout>
+            
+           
+            
+          
+            
+             
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                     
+ 					 <TextView
+ 					     android:id="@+id/textView1"
+ 					     android:layout_width="10dp"
+ 					     android:layout_height="30dp"
+ 					     android:layout_marginTop="3dp"
+ 					     android:layout_weight="0.45"
+ 					     android:background="#CCFFFF"
+ 					     android:gravity="center"
+ 					     android:text="泡沫						"
+ 					     android:textSize="10sp" />
+
+ 					 <TextView
+ 					     android:id="@+id/textView1"
+ 					     android:layout_width="10dp"
+ 					     android:layout_height="30dp"
+ 					     android:layout_marginTop="3dp"
+ 					     android:layout_weight="0.45"
+ 					     android:background="#CCFFFF"
+ 					     android:gravity="center"
+ 					     android:text="						3:03"
+ 					     android:textSize="10sp" />
+                       
+                </LinearLayout>
+
+            </LinearLayout>
+            
+           
+            
+          
+            
+            
+          
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+       
+         </LinearLayout>     
+  </ScrollView>
+
+</LinearLayout>

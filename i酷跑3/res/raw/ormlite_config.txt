@@ -1,0 +1,89 @@
+#
+# generated on 2014/09/30 09:19:39
+#
+# --table-start--
+dataClass=domain.dataCollect.MinuteSportData
+tableName=T_MinuteSportData
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=number
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=speed
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=heartRate
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=collectTime
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=oneSport
+canBeNull=false
+foreign=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=domain.dataCollect.OneSport
+tableName=T_OneSport
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=date
+columnName=date
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=startTime
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=endTime
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=count
+columnName=count
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=minuteSportDatas
+foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=domain.systemManaConfig.Friends
+tableName=T_Friends
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=friendName
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=anotherName
+# --field-end--
+# --field-start--
+fieldName=personalWord
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
