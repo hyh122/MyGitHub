@@ -23,6 +23,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -39,6 +40,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +52,7 @@ public class AddFriendsActivity extends Activity implements IXListViewListener {
 	private PullRefreshListView pullRefreshListView;
 	// 线程handle
 	private Handler mHandler;
-
+	private FrameLayout frameLayout;
 	private int sizeOfAllFriend;
 	private List<Friends> friends;
 
@@ -67,6 +69,7 @@ public class AddFriendsActivity extends Activity implements IXListViewListener {
 	private CharacterParser characterParser;
 
 	private List<FriendsListModel> friendsDataList;
+	
 	// 装载所有的用户
 	private List<FriendsListModel> allFriendsDataList;
 	// 装载过滤后的所有的用户
@@ -90,7 +93,10 @@ public class AddFriendsActivity extends Activity implements IXListViewListener {
 		systemManagerService = new SystemManageService();
 
 		dataContext = new DataContext();
+		frameLayout=(FrameLayout) findViewById(R.id.frameLayoutOfAddFriends);
 		pullRefreshListView = (PullRefreshListView) findViewById(R.id.pullRefreshListView);
+		//将listview设为不可见
+		pullRefreshListView.setVisibility(View.GONE);
 		pullRefreshListView.setPullLoadEnable(true);
 		// 先随机添加一些数据进去
 		Friends friend = new Friends(1, "郑震培", "寂寞哥", "南区区草");
@@ -212,7 +218,7 @@ public class AddFriendsActivity extends Activity implements IXListViewListener {
 		 */
 		allFriendsDataListAfterFilter = new ArrayList<FriendsListModel>();
 
-		allFriendsDataListAfterFilter = allFriendsDataList;
+		
 
 		sizeOfAllFriend = allFriendsDataListAfterFilter.size();
 
@@ -258,10 +264,18 @@ public class AddFriendsActivity extends Activity implements IXListViewListener {
 	 * @param filterStr
 	 */
 	private void filterData(String filterStr) {
+		//将listview设为可见
+		pullRefreshListView.setVisibility(View.VISIBLE);
+		//将背景图设为不可见
+		frameLayout.setBackground(null);
 		List<FriendsListModel> filterDateList = new ArrayList<FriendsListModel>();
-
+		List<FriendsListModel> nullDataList=new ArrayList<FriendsListModel>();
 		if (TextUtils.isEmpty(filterStr)) {
-			filterDateList = allFriendsDataList;
+			//将listv设为不可见
+			pullRefreshListView.setVisibility(View.GONE);
+			//设置背景图
+			frameLayout.setBackground(getResources().getDrawable(R.drawable.start_running_title));
+			filterDateList = nullDataList;
 
 		} else {
 			filterDateList.clear();

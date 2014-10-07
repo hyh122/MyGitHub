@@ -15,9 +15,11 @@
         android:singleLine="true"
         android:textSize="25sp" />
 <FrameLayout
+   	 	android:id="@+id/frameLayoutOfAddFriends"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-
+        android:layout_height="fill_parent" 
+        android:background="@drawable/start_running_title">
+		
        <domain.statisticsDisplay.PullRefreshListView
         android:id="@+id/pullRefreshListView"
         android:layout_width="fill_parent"
