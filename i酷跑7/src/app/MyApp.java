@@ -2,7 +2,7 @@ package app;
 
 import foundation.dataService.base.DataHelper;
 import android.app.Application;
-
+//
 public class MyApp extends Application {
 	
 	public static final String DATAFILENAME="ikupao5.db";

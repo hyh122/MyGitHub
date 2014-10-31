@@ -99,21 +99,46 @@ public class FriendsListActivity extends Activity implements IXListViewListener 
 //	e.printStackTrace();
 //}
 	
-//		//模拟数据
-//				users=new ArrayList<User>();
-//				User user=new User();
-//				user.setBirthday("1994-06-08");
-//				user.setCity("福州");
-//				user.setEmail("1215605211@qq.com");
-//				user.setHeight(176);
-//				user.setNickName("黄耀辉");
-//				user.setPassword("123456");
-//				user.setPersonalword("爱跑步，爱特步");
-//				user.setProtrait(ImageTools.drawableToBytes(getResources().getDrawable(R.drawable.start_running_title)));
-//				user.setSex("男");
-//				user.setWeight(66);
-//				user.setLogin(true);
-//				
+		//模拟数据
+				users=new ArrayList<User>();
+				User user=new User();
+				user.setBirthday("1994-06-08");
+				user.setCity("福州");
+				user.setEmail("1245689034@qq.com");
+				user.setHeight(173);
+				user.setNickName("林秋");
+				user.setPassword("123456");
+				user.setPersonalword("今天跑了一公里很享受哦");
+				user.setProtrait(ImageTools.drawableToBytes(getResources().getDrawable(R.drawable.cover_1)));
+				user.setSex("男");
+				user.setWeight(60);
+				user.setLogin(false);
+				
+				User user2=new User();
+				user2.setBirthday("1994-08-08");
+				user2.setCity("福州");
+				user2.setEmail("2454603958@qq.com");
+				user2.setHeight(176);
+				user2.setNickName("游敏");
+				user2.setPassword("123456");
+				user2.setPersonalword("要跑步就用i酷跑吧");
+				user2.setProtrait(ImageTools.drawableToBytes(getResources().getDrawable(R.drawable.cover_2)));
+				user2.setSex("男");
+				user2.setWeight(66);
+				user2.setLogin(false);
+				
+				User user3=new User();
+				user3.setBirthday("1994-03-08");
+				user3.setCity("福州");
+				user3.setEmail("2453403958@qq.com");
+				user3.setHeight(174);
+				user3.setNickName("林浩宇");
+				user3.setPassword("123456");
+				user3.setPersonalword("昨天跑了两个小时虽然有点累但很满足");
+				user3.setProtrait(ImageTools.drawableToBytes(getResources().getDrawable(R.drawable.cover_3)));
+				user3.setSex("男");
+				user3.setWeight(62);
+				user3.setLogin(false);
 //				User user2=new User();
 //				user2.setBirthday("1994-06-08");
 //				user2.setCity("福州");
@@ -126,14 +151,15 @@ public class FriendsListActivity extends Activity implements IXListViewListener 
 //				user2.setSex("男");
 //				user2.setWeight(66);
 //				user2.setLogin(false);
-//				try {
-//				dataContext.delete(user, User.class, String.class);
-//				dataContext.add(user, User.class, String.class);
-//				dataContext.add(user2, User.class, String.class);
-//				} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//				}
+				try {
+			//	dataContext.delete(user, User.class, String.class);
+				dataContext.add(user, User.class, String.class);
+				dataContext.add(user2, User.class, String.class);
+				dataContext.add(user3, User.class, String.class);
+				} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				}
 		// //先随机添加一些数据进去
 		// Friends friend=new Friends(1,"郑震培","寂寞哥","南区区草");
 		// Friends friend1=new Friends(2,"齐秦","齐秦","哎呦,不错哦");
